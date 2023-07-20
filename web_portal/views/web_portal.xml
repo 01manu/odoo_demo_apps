@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="menu_patient_form2" model="website.menu">
+        <field name="name">Create collage</field>
+        <field name="url">/primeminds/patients/</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">77</field>
+    </record>
+
+    <template id="create_collage" name="Create Collage">
+        <t t-call="website.layout">
+            <section style="background-image: url('/web_portal/static/src/img/background.jpg');background-size: cover;
+            background-position: center;
+  background-repeat: no-repeat;height:500px;" class="col-lg-18">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="container">
+                            <form role="form" action="/create/collage/" method="POST">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <div class="col-lg-4">
+                                    <label for="name" class="control-label" style="width=50%;color:white;">Collage
+                                        Name
+                                    </label>
+                                    <input type="text" name="collage_name" t-att-value="collage_name" id="collage_name"
+                                           class="form-control"
+                                           placeholder="Enter collage Name" required="required"/>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label for="sold00" class="control-label" style="color:white;">Location</label>
+                                    <input type="char" name="location" t-att-value="location" id="location"
+                                           class="form-control" placeholder="Enter Location" required="required"/>
+                                </div>
+                                <!--                                <div class="form-group">-->
+                                <!--                                    <label for="image" class="control-label">Collage Type</label>-->
+                                <!--                                    <input type="file" name="image" accept="image/*" id="image" class="form-control"-->
+                                <!--                                           t-att-value="image"-->
+                                <!--                                           required="required"/>-->
+                                <!--                                </div>-->
+                                <div class="clearfix oe_login_buttons">
+                                    <button type="submit" class="btn btn-primary pull-left" style="color:white;">
+                                        Submit
+                                    </button>
+                                </div>
+                            </form>
+                            <!--                            <table class="table table-bordered" boarder="2px solid">-->
+                            <!--                                <thead>-->
+                            <!--                                    <tr>-->
+                            <!--                                        <td>Collage Name</td>-->
+                            <!--                                        <td>Location</td>-->
+                            <!--                                        <td>Collage Type</td>-->
+
+                            <!--                                    </tr>-->
+                            <!--                                </thead>-->
+                            <!--                                <body>-->
+                            <!--                                    <t t-foreach="patient_name" t-as="po">-->
+                            <!--                                        <tr>-->
+                            <!--                                            <td>-->
+                            <!--                                                <t t-esc="po.collage_name"/>-->
+                            <!--                                            </td>-->
+                            <!--                                            <td>-->
+                            <!--                                                <t t-esc="po.location"/>-->
+                            <!--                                            </td>-->
+                            <!--                                            <td>-->
+                            <!--                                                <t t-esc="po.location"/>-->
+                            <!--                                            </td>-->
+                            <!--                                            <td>-->
+                            <!--                                                <t t-esc="po.location"/>-->
+                            <!--                                            </td>-->
+                            <!--                                        </tr>-->
+                            <!--                                    </t>-->
+                            <!--                                </body>-->
+                            <!--                            </table>-->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </t>
+    </template>
+
+    <record id="employee_thanks" model="website.page">
+        <field name="name">Thank you very much</field>
+        <field name="type">qweb</field>
+        <field name="url">/create/webemployee/</field>
+        <field name="website_published">True</field>
+        <field name="key">web_portal.employee_thanks</field>
+        <field name="arch" type="xml">
+            <t name="Thanks" t-name="c_module.product_thanks">
+                <t t-call="website.layout">
+                    <section style="background-color:#999966;height:520px;">
+                        <div id="wrap">
+                            <div class="container" style="text-align:center; color:black;">
+                                <span class="d-block fa fa-6x fa-thumbs-up mx-auto" style="color:#ccffcc;"/>
+                                Your data has been updated successfully.
+                                <br/>
+                                <h1>
+                                    <b>Thank You !!! ...</b>
+                                </h1>
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </t>
+            </t>
+        </field>
+    </record>
+</odoo>

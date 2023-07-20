@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="collage_list_form_view_portal" name="collagelistdisplay">
+        <t t-call="website.layout">
+            <section style="">
+                <div class="container">
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr class="active">
+                                <th class="text-center">Name of the collage</th>
+<!--                                <th class="text-center">Contact No.</th>-->
+<!--                                <th class="text-center">Website</th>-->
+<!--                                <th class="text-center">Slots</th>-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="collage_list" t-as="collage">
+                                <tr>
+                                    <td class="text-center">
+                                        <a t-attf-href="/collage/list/form/details/#{collage.id}">
+                                            <t t-esc="collage.name"/>
+                                        </a>
+                                    </td>
+<!--                                    <td class="text-center">-->
+<!--                                        <t t-esc="collage.phone"/>-->
+<!--                                    </td>-->
+<!--                                    <td class="text-center">-->
+<!--                                        <t t-esc="collage.website"/>-->
+<!--                                    </td>-->
+<!--                                    <td class="text-center">-->
+<!--                                        <t t-esc="collage.total_slots"/>-->
+<!--                                    </td>-->
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </t>
+        <style>
+            table{
+            width:80%;
+            }
+        </style>
+    </template>
+    <template id="collage_details_form_view_portal">
+        <t t-call="website.layout">
+            <t t-foreach="collage_list" t-as="collage">
+                <section style="background-color: black;">
+                    <div class="container py-5">
+                        <div class="row">
+                            <div class="col-lg-15">
+                                <div class="card mb-4">
+                                    <div class="card-body text-center">
+                                        <img t-if="collage.image_1920"
+                                             t-att-src="'data:image/png;base64,' + collage.image_1920.decode('utf-8')"
+                                             alt="Image" style="width:50%; height:50%;"/>
+                                        <h5 class="my-3">
+                                            <t t-out="collage.name"/>
+                                        </h5>
+                                        <p class="text-muted mb-1">Contact Us</p>
+                                        <div class="d-flex justify-content-center mb-2">
+                                            <button type="button" class="btn btn-primary">Follow</button>
+                                            <buttocollage_details_form_view_portaln type="button" class="btn btn-outline-primary ms-1">Message
+                                            </buttocollage_details_form_view_portaln>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card mb-4 mb-lg-0">
+                                </div>
+                            </div>
+                            <div class="col-lg-15">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Collage Name</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-esc="collage.name"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Collage Type</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">website</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <a t-attf-href="{{ collage.website }}">
+                                                        <t t-out="collage.website"/>
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Mobie NO</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-esc="collage.phone"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Location</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">state</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">E-mail</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-esc="collage.email"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">For Image</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <a t-attf-href="/my/collages/servers/web/#{collage.id}">
+                                                        <p>click Here</p>
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                    </div>
+                </section>
+            </t>
+        </t>
+        <!--        </xpath>-->
+    </template>
+    <template id="image_web">
+        <t t-call="website.layout">
+            <section>
+                <t t-foreach="image_ids" t-as="image">
+                    <div>
+                        <div>
+                            <t t-esc="image.classroom_name"/>
+                        </div>
+                        <div class="image-container">
+                            <t t-foreach="image.room_image.ids" t-as="im">
+                                <div class="image-wrapper">
+                                    <img t-att-src="'/web/image/' + str(im) + '/image'" alt="Image"
+                                         style="padding:50px;" class="image"/>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                        // Zoom image on click
+                        $('.image').click(function() {
+                        $(this).toggleClass('zoomed');
+                        });
+
+                        // Reset zoom on cursor hover
+                        $('.image').hover(function() {
+                        $(this).removeClass('zoomed');
+                        });
+                        $('.image-container').on('swipeleft', function() {
+                        // Calculate scroll distance and animate container
+                        $(this).animate({ scrollLeft: '+=200' }, 'slow');
+                        });
+
+                        $('.image-container').on('swiperight', function() {
+                        // Calculate scroll distance and animate container
+                        $(this).animate({ scrollLeft: '-=200' }, 'slow');
+                        });
+                        });
+                    </script>
+                </t>
+            </section>
+        </t>
+        <style>
+            .image-container {
+            width: 100%;
+            height: 300px;
+            overflow-x: scroll;
+            white-space: nowrap;
+            }
+
+            .image-wrapper {
+            display: inline-block;
+            height: 100%;
+            margin-right: 10px;
+
+            }
+            .image{
+            max-width:100%;
+            max-height:100%;
+            }
+            .zoomed {
+            transform: scale(3);
+            z-index: 9999;
+            }
+        </style>
+    </template>
+
+<!--    <template id="portal_my_home" inherit_id="portal.portal_my_home">-->
+<!--        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">-->
+<!--            <t t-call="portal.portal_docs_entry">-->
+<!--                <t t-set="url">/my/college</t>-->
+<!--                <t t-set="title">College List</t>-->
+<!--                <t t-set="placeholder_count" t-value="'collages_count'"/>-->
+<!--            </t>-->
+<!--        </xpath>-->
+<!--    </template>-->
+</odoo>

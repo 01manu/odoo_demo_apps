@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="menu_collage_form2" model="website.menu">
+        <field name="name">Collages List</field>
+        <field name="url">/collage/list</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">55</field>
+    </record>
+    <template id="portal_my_home_login_main" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+            <div class="container">
+                <h1>Welcome to the Admin Page</h1>
+                <h1>Login</h1>
+                <form method="post" action="/login">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="col-lg-4">
+                        <label for="username" class="control-label" style="width=50%;color:white;">UserName</label>
+                        <input type="text" name="username" t-att-value="username" id="username"
+                               class="form-control"
+                               placeholder="Enter user Name" required="required"/>
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="password" class="control-label" style="color:white;">Password:</label>
+                        <input type="char" name="password" t-att-value="password" id="password"
+                               class="form-control" placeholder="Enter password" required="required"/>
+                    </div>
+                    <div>
+                        <input type="submit" value="Login"/>
+                    </div>
+                </form>
+            </div>
+        </xpath>
+    </template>
+
+
+    <template id="portal_my_home" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="url">/my/collages</t>
+                <t t-set="title">Collages List</t>
+                <t t-set="placeholder_count" t-value="'collages_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="collage_list_view_portal">
+        <t t-call="portal.portal_layout">
+            <t t-call="portal.portal_table">
+                <div class="text-right mb-2">
+                    <a class="btn btn-primary" t-attf-href="/my/collages/booking">Book Now</a>
+                </div>
+                <thead>
+                    <tr class="active">
+                        <th class="text-center">Name of the collage</th>
+                        <th class="text-center">Total Rooms</th>
+                        <th class="text-center">Name of the Exam</th>
+                        <th class="text-center">Booked Rooms</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="collage_list" t-as="collage">
+                        <tr>
+                            <td class="text-center">
+                                <a t-attf-href="/my/collages/servers/web/#{collage.id}">
+                                    <t t-esc="collage.center_id.name"/>
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <t t-foreach="collage" t-as="m">
+<!--                                    <t t-esc="m.avaliable_slots"/>-->
+                                </t>
+                            </td>
+                            <td class="text-center">
+                                <t t-foreach="collage.name_of_exam" t-as="k">
+<!--                                    <t t-esc="k.exam_name"/>-->
+                                </t>
+                            </td>
+                            <td class="text-center">
+                                <t t-foreach="collage.remaining_slots" t-as="f">
+<!--                                    <t t-esc="f.classroom_name"/>-->
+                                </t>
+                            </td>
+
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+    <template id="home1">
+        <section style="background-color:pink;">
+            <h1>HELLO WORLD</h1>
+        </section>
+
+    </template>
+
+    <template id="collage_form_view_portal" name="create form">
+        <t t-call="website.layout">
+            <section>
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="container">
+                            <form method="post" action="/exam/booking/submit">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <div class="form-group">
+                                    <label for="college_id">Select College:</label>
+                                    <select class="form-control" id="center_id" name="center_id">
+                                        <t t-foreach="colleges" t-as="college">
+                                            <option t-att-value="college.id">
+                                                <t t-esc="college.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exam_id">Select Exam:</label>
+                                    <select class="form-control" id="name_of_exam" name="name_of_exam">
+                                        <t t-foreach="exams" t-as="exam">
+                                            <option t-att-value="exam.id">
+                                                <t t-esc="exam.exam_name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="slots">Number of Slots:</label>
+                                    <input type="number" class="form-control" id="slots" name="slots" min="0"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="booked_slots">Booking Slots:</label>
+                                    <input type="number" class="form-control" id="booked_slots" name="booked_slots"
+                                           min="0"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="remaining_slots">Remaining Slots:</label>
+                                    <select class="form-control" id="remaining_slots" name="remaining_slots">
+                                        <t t-foreach="remaining_slots" t-as="slot">
+                                            <option t-att-value="slot.id">
+                                                <t t-esc="slot.classroom_name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Book Now</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </t>
+    </template>
+
+    <record id="employee_thanks" model="website.page">
+        <field name="name">Thank you very much</field>
+        <field name="type">qweb</field>
+        <field name="url">/create/webemployee/</field>
+        <field name="website_published">True</field>
+        <field name="key">web_portal.employee_thanks</field>
+        <field name="arch" type="xml">
+            <t name="Thanks" t-name="c_module.product_thanks">
+                <t t-call="website.layout">
+                    <section style="background-color:#999966;height:520px;">
+                        <div id="wrap">
+                            <div class="container" style="text-align:center; color:black;">
+                                <span class="d-block fa fa-6x fa-thumbs-up mx-auto" style="color:#ccffcc;"/>
+                                Your data has been updated successfully.
+                                <br/>
+                                <h1>
+                                    <b>Thank You !!! ...</b>
+                                </h1>
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </t>
+            </t>
+        </field>
+    </record>
+
+
+</odoo>
